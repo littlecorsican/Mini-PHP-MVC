@@ -1,5 +1,6 @@
 <?php
 
+//namespace Framework\App\Core\Model;
 
 class Db {
 

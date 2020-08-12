@@ -1,6 +1,6 @@
 <?php
 
-//namespace Framework\App\Admin\Controller\Dashboard;
+//namespace Framework\App\Admin\Controller;
 
 
 
@@ -20,15 +20,25 @@ class Account extends Controller {
             $username = $_POST['input_login'];
             $pw = md5($_POST['input_password']);
 
-            $stmt = $this->db->preparedStatement("SELECT * FROM tbl_user WHERE username=? LIMIT 1", array($username));
+            $stmt = $this->db->preparedStatement("SELECT * FROM tbl_admin WHERE adminname=? LIMIT 1", array($username));
             $result = $stmt->fetch();
             if ($stmt->rowCount()) {
 
                 if ($result['password'] === $pw) { 
-                    $_SESSION['logined'] = true;
-                    $_SESSION['username'] = $username;
 
+                    $loginTime = date("Y-m-d H:i:s");
+
+                    $_SESSION['logined'] = true;
+                    $_SESSION['adminname'] = $username;
+                    $_SESSION['loginTime'] = $loginTime;
+
+                    
+                    // login success, redirect
                     header("Location: /phpframework/admin/dashboard");
+                    
+                    
+
+                    
                 } else {
                     $this->error = "Wrong Password!";
                 }
@@ -72,17 +82,22 @@ class Account extends Controller {
             }
 
             //check if user is taken
-            $stmt = $this->db->preparedStatement("SELECT * FROM tbl_user WHERE username=? LIMIT 1", array($username));
+            $stmt = $this->db->preparedStatement("SELECT * FROM tbl_admin WHERE adminname=? LIMIT 1", array($username));
             $result = $stmt->fetch();
             if ($stmt->rowCount()) {
                 $this->error .= "Username has been taken! <br>";
             }
 
             if ($this->error == "") {
-
-                $stmt = $this->db->preparedStatement("INSERT INTO tbl_user (`username`, `password`, `email`, `reset_password`) VALUES (?,?,?,?)", array($username, md5($pw), $email, 0 ));
-                $this->msg = "Account created! Click <a href='/phpframework/admin/account/login'>HERE</a> to log in";
-
+                try {
+                    $stmt = $this->db->preparedStatement("INSERT INTO tbl_admin (`adminname`, `password`, `email`) VALUES (?,?,?)", array($username, md5($pw), $email ));
+                    $this->msg = "Account created! Click <a href='/phpframework/admin/account/login'>HERE</a> to log in";
+                } catch(\PDOException $e){
+                    $this->$error .= $e->getMessage() . "<br>";
+                }catch(\Exception $e){
+                    $this->$error .= $e->getMessage() . "<br>";
+                }
+                
             }
 
         }
@@ -92,7 +107,7 @@ class Account extends Controller {
 
     function Logout() {
 
-        $user = $_SESSION['username'];
+        $user = isset($_SESSION['adminname']) ? $_SESSION['adminname'] : "" ;
         session_destroy();
 
         $viewData = array("user"=>$user);

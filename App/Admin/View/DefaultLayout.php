@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <script src="static/js/bootstrap 4.5.2/bootstrap.min.js"></script>
-    <script src="static/js/jquery 3.5.1/jquery-3.5.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap 4.5.2/bootstrap.min.css">
+    <script src="/phpframework/static/js/jquery 3.5.1/jquery-3.5.1.js"></script>
+    <script src="/phpframework/static/js/bootstrap 4.5.2/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/phpframework/static/css/bootstrap 4.5.2/bootstrap.min.css">
 </head>
 
 <body>
 
 
-
 <div id="topheader">
   <nav class="topnav">
 		<div class="container-fluid">
-            <a class="active" href="/phpframework/<?php echo $type ?>/dashboard">Dashboard</a>
-            <a href="/phpframework/<?php echo $type ?>/account/login">Login</a>
-            <a href="/phpframework/<?php echo $type ?>/account/signup">Signup</a>
-            <a href="/phpframework/<?php echo $type ?>/account/logout">Logout</a>
+            <a class="<?php if ($_SERVER['REQUEST_URI'] == "/phpframework/{$type}/dashboard") echo 'active' ?>" href="/phpframework/<?php echo $type ?>/dashboard">Dashboard</a>
+            <a class="<?php if ($_SERVER['REQUEST_URI'] == "/phpframework/{$type}/account/login") echo 'active' ?>" href="/phpframework/<?php echo $type ?>/account/login">Login</a>
+            <a class="<?php if ($_SERVER['REQUEST_URI'] == "/phpframework/{$type}/account/signup") echo 'active' ?>" href="/phpframework/<?php echo $type ?>/account/signup">Signup</a>
+            <a class="<?php if ($_SERVER['REQUEST_URI'] == "/phpframework/{$type}/account/logout") echo 'active' ?>" href="/phpframework/<?php echo $type ?>/account/logout">Logout</a>
 		</div>
   </nav>
 </div>

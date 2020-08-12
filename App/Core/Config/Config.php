@@ -1,5 +1,5 @@
 <?php
-//namespace Framework\Core\Config;
+namespace Framework\Core\Config;
 
 
 $this->config['system']['timezone'] = "Asia/Kuala_Lumpur";

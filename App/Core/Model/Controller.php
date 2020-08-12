@@ -1,7 +1,7 @@
 <?php
 
-//use Framework\Core\Config;
-
+//namespace Framework\App\Core\Model;
+//use Framework\App\Core\Model\Controller;
 
 abstract class Controller {
 

@@ -1,5 +1,7 @@
 <?php
 
+use Framework\App\App;
+
 /*
     incomplete
     1) login system
@@ -16,7 +18,7 @@ require_once __DIR__ . '/App/Core/Model/Controller.php';
 require_once __DIR__ . '/App/Core/Model/Db.php';
 require_once __DIR__ . '/App/Core/Model/Utils.php';
 
-$x = new \App();
+$x = new App();
 
 $u =  $x->getUrl();
 $x->render();

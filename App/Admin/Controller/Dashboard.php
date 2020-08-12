@@ -1,7 +1,7 @@
 <?php
 
-//use Framework\Core\Config;
-
+//namespace Framework\App\Admin\Controller;
+//use Framework\App\Core\Model;
 
 class Dashboard extends Controller {
 
@@ -9,7 +9,7 @@ class Dashboard extends Controller {
         
         if (isset($_SESSION['logined'])) {
             if ($_SESSION['logined']) {
-                $welcomeMsg = "Welcome " . $_SESSION['username'] . " !";
+                $welcomeMsg = "Welcome " . $_SESSION['adminname'] . " !";
             }
             
         } else {

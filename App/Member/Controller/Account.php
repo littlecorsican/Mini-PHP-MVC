@@ -14,12 +14,7 @@ class Account extends Controller {
 
     function Login() {
         
-        if (isset($_POST['login_form'])) {
 
-            $login = new \Login($_POST['input_login'],$_POST['input_password'], "member");
-
-            $login->sign_in();
-        }
 
 
 

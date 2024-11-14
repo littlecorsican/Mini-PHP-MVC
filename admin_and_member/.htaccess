@@ -1,4 +1,19 @@
 RewriteEngine On
-#RewriteRule ^([^/]*)/([^/]*)$ index.php [L]
-RewriteRule ^([^/]+)/? index.php [L,QSA]
 
+# 1) Don't redirect the index.php file itself to avoid loops
+RewriteCond %{REQUEST_URI} !^/index.php$
+
+# 2) If it's a .php file, redirect to index.php at the root
+# (optional: enable this if necessary, but be aware it might cause problems)
+# RewriteRule \.php$ /index.php [L,R=301]
+
+# 3) If it's a .js, .css, or image file (like .jpg, .jpeg, .png, .gif), do not redirect to index.php
+RewriteRule ^(.*)\.(js|css|jpg|jpeg|png|gif|bmp|svg|webp)$ - [L]
+
+# 4) If it's a .html file, redirect to the static folder at the root
+# RewriteRule \.html$ /static/$0 [L,R=301]
+
+# 5) If it's a route (i.e., any non-file request), redirect to index.php at the root
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /phpmvc/index.php [L,QSA]
